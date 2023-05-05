@@ -7,6 +7,7 @@ import Home from "./index"
 import Layout from "../components/layout"
 import Cookie from "js-cookie"
 import RestaurantPage from "./restaurants/index";
+import withData from "../lib/apollo";
 
 function MyApp(props){
   var {cart,addItem,removeItem, user, setUser} = useContext(CartContext)
