@@ -28,8 +28,9 @@ function Home() {
                 />
                 </InputGroup><br></br>
             </div>
+            <div>
             <RestaurantList search={query} />
-            <Cart> </Cart>
+            </div>
         </ApolloProvider>
     );
   }

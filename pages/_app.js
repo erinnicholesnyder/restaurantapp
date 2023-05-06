@@ -6,13 +6,17 @@ import { UserProvider } from "../components/usercontext";
 import Home from "./index"
 import Layout from "../components/layout"
 import Cookie from "js-cookie"
-import RestaurantPage from "./restaurants/index";
 import withData from "../lib/apollo";
+import {ApolloProvider,ApolloClient,HttpLink, InMemoryCache} from '@apollo/client';
 
 function MyApp(props){
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337";
   var {cart,addItem,removeItem, user, setUser} = useContext(CartContext)
   const [state,setState] = useState({cart:cart});
   const { Component, pageProps } = props;
+  const link = new HttpLink({ uri: `${API_URL}/graphql`})
+  const cache = new InMemoryCache()
+  const client = new ApolloClient({link,cache});
   
   
   setUser = (user) => {setState({ user });};
@@ -83,6 +87,7 @@ function MyApp(props){
   }
 
   return (
+    <ApolloProvider client={client}>
     <UserProvider value={{user:null,setUser:()=>{}}}>
     <CartContext.Provider value={{cart: state.cart, addItem: addItem, removeItem: removeItem,isAuthenticated:false}}>
       <Head>
@@ -100,9 +105,10 @@ function MyApp(props){
 
     </CartContext.Provider>
     </UserProvider>
+    </ApolloProvider>
   );
   
 }
 
 
-export default MyApp;
+export default withData(MyApp);

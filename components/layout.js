@@ -6,7 +6,7 @@ import CartContext from "./context";
 import UserContext from "./usercontext";
 
 const Layout = (props) => {
-const title = "Welcome to Nextjs";
+const title = "Full Stack Restaurant App";
 const {user, setUser} = useContext(UserContext);
   return (
     <div>
