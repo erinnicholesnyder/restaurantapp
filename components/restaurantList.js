@@ -43,10 +43,6 @@ function RestaurantList(props) {
     return res.name.toLowerCase().includes(props.search)
   }) || [];
 
-  let restId = searchQuery[0] ? searchQuery[0].id : null;
-
-//<CardImg top={true} style={{ height: 200 }} src={`${process.env.NEXT_PUBLIC_API_URL}${res.image[0].url}`}/>
-
   if (searchQuery.length > 0) {
     const restList = searchQuery.map((res) => (
       <Col xs="6" sm="4" key={res.id}>
