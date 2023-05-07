@@ -45,15 +45,17 @@ function RestaurantList(props) {
 
   let restId = searchQuery[0] ? searchQuery[0].id : null;
 
+//<CardImg top={true} style={{ height: 200 }} src={`${process.env.NEXT_PUBLIC_API_URL}${res.image[0].url}`}/>
+
   if (searchQuery.length > 0) {
     const restList = searchQuery.map((res) => (
       <Col xs="6" sm="4" key={res.id}>
         <Card style={{ margin: "0 0.5rem 20px 0.5rem" }}>
-          <CardImg
-            top={true}
-            style={{ height: 200 }}
-            src={`${process.env.NEXT_PUBLIC_API_URL}${res.image[0].url}`}
-          />
+        <CardImg
+                  top={true}
+                  style={{ height: 250 }}
+                  src={`${process.env.NEXT_PUBLIC_API_URL}${res.image.url}`}
+                />
           <CardBody>
             <CardText>{res.description}</CardText>
           </CardBody>
@@ -65,7 +67,6 @@ function RestaurantList(props) {
         </Card>
       </Col>
     ))
-//<Link as={"/restaurants/"+res.name} href="restaurants/[res.name]">
     return (
       <Container>
         <Row xs='3'>
