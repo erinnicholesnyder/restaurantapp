@@ -13,6 +13,7 @@ import {
 import { login } from "../components/auth";
 import CartContext from "../components/context";
 import UserContext from "../components/usercontext";
+import Image from 'next/image';
 
 function Login(props) {
   const [data, updateData] = useState({ identifier: "", password: "" });
@@ -38,7 +39,12 @@ function Login(props) {
         <Col sm="12" md={{ size: 5, offset: 3 }}>
           <div className="paper">
             <div className="header">
-              <img src="http://localhost:1337/uploads/5a60a9d26a764e7cba1099d8b157b5e9.png" />
+              <Image
+                src="/generic-logo.png"
+                width={400}
+                height={100}
+                alt="logo"
+              />
             </div>
             <section className="wrapper">
               {Object.entries(error).length !== 0 &&

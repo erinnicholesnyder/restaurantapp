@@ -67,6 +67,14 @@ export const logout = () => {
   Router.push("/");
 };
 
+export const confirmCardPayment = () => {
+  //prevent function from being ran on the server
+  if (typeof window === "undefined") {
+    return;
+  }
+  Router.push("/");
+};
+
 //Higher Order Component to wrap our pages and logout simultaneously logged in tabs
 // THIS IS NOT USED in the tutorial, only provided if you wanted to implement
 export const withAuthSync = (Component) => {

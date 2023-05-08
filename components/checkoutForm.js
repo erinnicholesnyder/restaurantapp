@@ -1,10 +1,11 @@
 import React, { useState, useContext } from "react";
 import { FormGroup, Label, Input } from "reactstrap";
 import fetch from "isomorphic-fetch";
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import { CardElement, useStripe, useElements, Elements } from "@stripe/react-stripe-js";
 import CardSection from "./cardSection";
 import CartContext from "./context";
 import Cookies from "js-cookie";
+import { confirmCardPayment } from "./auth";
 
 function CheckoutForm() {
   const [data, setData] = useState({
@@ -14,6 +15,7 @@ function CheckoutForm() {
     stripe_id: "",
   });
   const [error, setError] = useState("");
+  const [isSuccessfullySubmitted, setIsSuccessfullySubmitted] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
   const cartContext = useContext(CartContext);
@@ -29,6 +31,7 @@ function CheckoutForm() {
   async function submitOrder() {
 
     const cardElement = elements.getElement(CardElement);    
+    setIsSuccessfullySubmitted(true);
 
     // // Pass the Element directly to other Stripe.js methods:
     // // e.g. createToken - https://stripe.com/docs/js/tokens_sources/create_token?type=cardElement
@@ -53,13 +56,14 @@ function CheckoutForm() {
     if (!response.ok) {
       setError(response.statusText);
       console.log("SUCCESS");
-    }
+    };
+    confirmCardPayment();
 
   }
 
   return (
     <div className="paper">
-      <h5>Your information:</h5>
+      <h5>{isSuccessfullySubmitted ? "Success!" : "Your information:"}</h5>
       <hr />
       <FormGroup style={{ display: "flex" }}>
         <div style={{ flex: "0.90", marginRight: 10 }}>

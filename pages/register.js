@@ -1,6 +1,7 @@
 /* /pages/register.js */
 
 import React, { useState, useContext } from "react";
+import Image from 'next/image';
 
 import {
   Container,
@@ -13,14 +14,12 @@ import {
   Input,
 } from "reactstrap";
 import { registerUser } from "../components/auth";
-import CartContext from "../components/context";
 import UserContext from "../components/usercontext";
 
 const Register = () => {
   const [data, setData] = useState({ email: "", username: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({});
-  const cartContext = useContext(CartContext);
   const {user, setUser} = useContext(UserContext);
   const [isSuccessfullySubmitted, setIsSuccessfullySubmitted] = useState(false);
   return (
@@ -29,7 +28,12 @@ const Register = () => {
         <Col sm="12" md={{ size: 5, offset: 3 }}>
           <div className="paper">
             <div className="header">
-              <img src="http://localhost:1337/uploads/5a60a9d26a764e7cba1099d8b157b5e9.png" />
+              <Image
+                src="/generic-logo.png"
+                width={400}
+                height={100}
+                alt="logo"
+              />
             </div>
             <section className="wrapper">
               {Object.entries(error).length !== 0 &&
