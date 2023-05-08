@@ -9,7 +9,8 @@ const CartContext = createContext(
         isAuthenticated:true, 
         cart: {items:[], total:0},
         addItem:()=>{},
-        removeItem:()=>{}
+        removeItem:()=>{},
+        clearCart:()=>{}
     });
 
 export default CartContext;

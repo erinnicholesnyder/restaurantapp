@@ -68,10 +68,6 @@ export const logout = () => {
 };
 
 export const confirmCardPayment = () => {
-  //prevent function from being ran on the server
-  if (typeof window === "undefined") {
-    return;
-  }
   Router.push("/");
 };
 

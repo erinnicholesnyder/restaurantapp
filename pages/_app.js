@@ -11,7 +11,7 @@ import {ApolloProvider,ApolloClient,HttpLink, InMemoryCache} from '@apollo/clien
 
 function MyApp(props){
   const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337";
-  var {cart,addItem,removeItem, user, setUser} = useContext(CartContext)
+  var {cart,addItem,removeItem,clearCart,user, setUser} = useContext(CartContext)
   const [state,setState] = useState({cart:cart});
   const { Component, pageProps } = props;
   const link = new HttpLink({ uri: `${API_URL}/graphql`})
@@ -86,10 +86,15 @@ function MyApp(props){
     setState({cart:newCart});
   }
 
+  clearCart = () => {
+    var newCart= {items:[], total:0};
+    setState({cart:newCart});
+  }
+
   return (
     <ApolloProvider client={client}>
     <UserProvider value={{user:null,setUser:()=>{}}}>
-    <CartContext.Provider value={{cart: state.cart, addItem: addItem, removeItem: removeItem,isAuthenticated:false}}>
+    <CartContext.Provider value={{cart: state.cart, addItem: addItem, removeItem: removeItem, clearCart: clearCart, isAuthenticated:false}}>
       <Head>
         <link
           rel="stylesheet"

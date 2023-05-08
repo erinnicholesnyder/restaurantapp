@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { FormGroup, Label, Input } from "reactstrap";
 import fetch from "isomorphic-fetch";
-import { CardElement, useStripe, useElements, Elements } from "@stripe/react-stripe-js";
+import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import CardSection from "./cardSection";
 import CartContext from "./context";
 import Cookies from "js-cookie";
@@ -14,12 +14,15 @@ function CheckoutForm() {
     state: "",
     stripe_id: "",
   });
+  var {cart} = useContext(CartContext);
   const [error, setError] = useState("");
   const [isSuccessfullySubmitted, setIsSuccessfullySubmitted] = useState(false);
+  const [clearcart,setClearcart] = useState({cart:cart});
   const stripe = useStripe();
   const elements = useElements();
   const cartContext = useContext(CartContext);
-  
+  const appContext = useContext(CartContext);
+
 
   function onChange(e) {
     // set the key = to the name property equal to the value typed
@@ -30,8 +33,10 @@ function CheckoutForm() {
 
   async function submitOrder() {
 
+    
     const cardElement = elements.getElement(CardElement);    
     setIsSuccessfullySubmitted(true);
+    
 
     // // Pass the Element directly to other Stripe.js methods:
     // // e.g. createToken - https://stripe.com/docs/js/tokens_sources/create_token?type=cardElement
@@ -57,6 +62,8 @@ function CheckoutForm() {
       setError(response.statusText);
       console.log("SUCCESS");
     };
+
+    appContext.clearCart();
     confirmCardPayment();
 
   }
